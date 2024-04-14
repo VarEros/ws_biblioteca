@@ -1,6 +1,6 @@
 package com.ws_biblioteca.api.model;
 
-import java.security.Timestamp;
+import java.time.LocalDateTime;
 
 import lombok.Data;
 
@@ -12,8 +12,11 @@ public class Book {
     private int yearEdition;
     private String genre;
     private int status;
-    private Timestamp date_borrow;
+    private LocalDateTime date_borrow;
     private int idPerson;
+
+    public Book() {
+    }
 
     public Book(int idBook, String title, String author, int yearEdition, String genre) {
         this.idBook = idBook;

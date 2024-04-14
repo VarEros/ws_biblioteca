@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.ColumnMapRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
@@ -15,6 +14,8 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import com.ws_biblioteca.api.model.Book;
+
+import com.ws_biblioteca.api.mapper.BookMapper;
 
 @Repository
 public class BookRepository {
@@ -76,17 +77,17 @@ public class BookRepository {
         }
     }
 
+
     @SuppressWarnings("unchecked")
-    public List<Map<String, Object>> listBooks() {
+    public List<Book> listBooks() {
         try {
             SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
                     .withProcedureName("PR_R_LIBROS")
-                    .declareParameters(
-                            new SqlOutParameter("@registro", Types.REF_CURSOR, new ColumnMapRowMapper()));
+                    .returningResultSet("registro", new BookMapper());
 
-            Map<String, Object> returnedResultSet = jdbcCall.execute();
-
-            return (List<Map<String, Object>>) returnedResultSet.get("@registro");
+            Map<String, Object> returnedResultSet = jdbcCall.execute(new MapSqlParameterSource());
+            List<Book> resultSet = (List<Book>) returnedResultSet.get("registro");
+            return resultSet;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
