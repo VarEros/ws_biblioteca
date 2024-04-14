@@ -11,6 +11,7 @@ public class Book {
     private String author;
     private int yearEdition;
     private String genre;
+    private String code;
     private int status;
     private LocalDateTime date_borrow;
     private int idPerson;

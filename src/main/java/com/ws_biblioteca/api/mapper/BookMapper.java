@@ -20,6 +20,7 @@ public class BookMapper implements RowMapper<Book>{
         book.setAuthor(rs.getString("autor"));
         book.setYearEdition(rs.getInt("anio_edicion"));
         book.setGenre(rs.getString("genero"));
+        book.setCode(rs.getString("codigo"));
         book.setStatus(rs.getInt("estado"));        
         book.setDate_borrow(getLocalDateTime(rs.getTimestamp("fecha_prestado")));
         book.setIdPerson(rs.getInt("id_persona"));
