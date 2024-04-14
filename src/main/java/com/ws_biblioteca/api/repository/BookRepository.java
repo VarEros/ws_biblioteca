@@ -1,9 +1,11 @@
 package com.ws_biblioteca.api.repository;
 
 import java.sql.Types;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.ColumnMapRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
@@ -69,6 +71,22 @@ public class BookRepository {
                 System.out.println("Error: " + returnedResultSet.get("@msgError"));
             
                 return (String) returnedResultSet.get("@resultado");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Map<String, Object>> listBooks() {
+        try {
+            SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
+                    .withProcedureName("PR_R_LIBROS")
+                    .declareParameters(
+                            new SqlOutParameter("@registro", Types.REF_CURSOR, new ColumnMapRowMapper()));
+
+            Map<String, Object> returnedResultSet = jdbcCall.execute();
+
+            return (List<Map<String, Object>>) returnedResultSet.get("@registro");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

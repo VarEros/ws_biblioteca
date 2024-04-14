@@ -56,4 +56,13 @@ public class BookController {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
+
+    @GetMapping("/list")
+    private ResponseEntity<Object> listBooks() {
+        try {
+            return new ResponseEntity<>(bookService.listBooks(), HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
 }

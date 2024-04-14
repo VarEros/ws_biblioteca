@@ -1,5 +1,8 @@
 package com.ws_biblioteca.api.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,4 +24,9 @@ public class BookService {
         String result = bookRepository.deleteBook(idBook);
         return result;
     } 
+
+    public List<Map<String, Object>> listBooks() {
+        List<Map<String, Object>> result = bookRepository.listBooks();
+        return result;
+    }
 }
