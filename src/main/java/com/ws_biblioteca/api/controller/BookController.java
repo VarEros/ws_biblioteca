@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ws_biblioteca.api.model.Book;
 import com.ws_biblioteca.api.service.BookService;
 
-@RequestMapping("/book")
+
 @RestController
+@RequestMapping("/book")
 public class BookController {
     
     @Autowired
