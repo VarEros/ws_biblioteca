@@ -49,6 +49,31 @@ public class PersonRepository {
         }
     }
 
+    public String returnBooks(int idBook1, int idBook2, int idBook3) {
+        try {
+            SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
+                    .withProcedureName("PR_U_LIBROS_DEVUELTOS")
+                    .declareParameters(
+                            new SqlParameter("@idLibro1", Types.INTEGER),
+                            new SqlParameter("@idLibro2", Types.INTEGER),
+                            new SqlParameter("@idLibro3", Types.INTEGER));
+
+            SqlParameterSource paramMap = new MapSqlParameterSource()
+                    .addValue("@idLibro1", idBook1)
+                    .addValue("@idLibro2", idBook2)
+                    .addValue("@idLibro3", idBook3);
+
+            Map<String, Object> returnedResultSet = jdbcCall.execute(paramMap);
+
+            if(returnedResultSet.get("@msgError") != null)
+                System.out.println("Error: " + returnedResultSet.get("@msgError"));
+            
+                return (String) returnedResultSet.get("@resultado");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public List<Book> listBorrowed(String cedula) {
         try {

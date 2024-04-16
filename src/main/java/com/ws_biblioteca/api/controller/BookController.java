@@ -3,6 +3,7 @@ package com.ws_biblioteca.api.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import com.ws_biblioteca.api.service.BookService;
 
 @RestController
 @RequestMapping("/book")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class BookController {
     
     @Autowired
@@ -25,7 +27,7 @@ public class BookController {
         try {
             Book bookObj = new Book(title, author, yearEdition, genre);
             String bookRegistered = bookService.createEditBook(bookObj);
-            return new ResponseEntity<>(bookRegistered, HttpStatus.OK);
+            return ResponseEntity.ok(bookRegistered);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
@@ -39,7 +41,7 @@ public class BookController {
             if(bookRegistered == null) {
                 return new ResponseEntity<>(bookRegistered, HttpStatus.NOT_FOUND);
             }
-            return new ResponseEntity<>(bookRegistered, HttpStatus.OK);
+            return ResponseEntity.ok(bookRegistered);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
@@ -52,7 +54,7 @@ public class BookController {
             if(bookDeleted == null) {
                 return new ResponseEntity<>(bookDeleted, HttpStatus.NOT_FOUND);
             }
-            return new ResponseEntity<>(bookDeleted, HttpStatus.OK);
+            return ResponseEntity.ok(bookDeleted);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
@@ -61,7 +63,7 @@ public class BookController {
     @GetMapping("/list")
     private ResponseEntity<Object> listBooks() {
         try {
-            return new ResponseEntity<>(bookService.listBooks(), HttpStatus.OK);
+            return ResponseEntity.ok(bookService.listBooks());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
