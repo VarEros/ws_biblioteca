@@ -19,8 +19,8 @@ public class BookService {
         return result;
     }
 
-    public String deleteBook(int idBook) {
-        String result = bookRepository.deleteBook(idBook);
+    public String deleteBook(int idLibro) {
+        String result = bookRepository.deleteBook(idLibro);
         return result;
     } 
 

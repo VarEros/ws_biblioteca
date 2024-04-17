@@ -49,7 +49,7 @@ public class PersonRepository {
         }
     }
 
-    public String returnBooks(int idBook1, int idBook2, int idBook3) {
+    public String returnBooks(int idLibro1, int idLibro2, int idLibro3) {
         try {
             SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
                     .withProcedureName("PR_U_LIBROS_DEVUELTOS")
@@ -59,9 +59,9 @@ public class PersonRepository {
                             new SqlParameter("@idLibro3", Types.INTEGER));
 
             SqlParameterSource paramMap = new MapSqlParameterSource()
-                    .addValue("@idLibro1", idBook1)
-                    .addValue("@idLibro2", idBook2)
-                    .addValue("@idLibro3", idBook3);
+                    .addValue("@idLibro1", idLibro1)
+                    .addValue("@idLibro2", idLibro2)
+                    .addValue("@idLibro3", idLibro3);
 
             Map<String, Object> returnedResultSet = jdbcCall.execute(paramMap);
 

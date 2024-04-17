@@ -6,31 +6,31 @@ import lombok.Data;
 
 @Data
 public class Book {
-    private int idBook;
-    private String title;
-    private String author;
-    private int yearEdition;
-    private String genre;
-    private String code;
-    private int status;
-    private LocalDateTime date_borrow;
-    private int idPerson;
+    private int idLibro;
+    private String titulo;
+    private String autor;
+    private int anioEdicion;
+    private String genero;
+    private String codigo;
+    private int estado;
+    private LocalDateTime fechaPrestado;
+    private int idPersona;
 
     public Book() {
     }
 
-    public Book(int idBook, String title, String author, int yearEdition, String genre) {
-        this.idBook = idBook;
-        this.title = title;
-        this.author = author;
-        this.yearEdition = yearEdition;
-        this.genre = genre;
+    public Book(int idLibro, String titulo, String autor, int anioEdicion, String genero) {
+        this.idLibro = idLibro;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.anioEdicion = anioEdicion;
+        this.genero = genero;
     }
 
-    public Book(String title, String author, int yearEdition, String genre) {
-        this.title = title;
-        this.author = author;
-        this.yearEdition = yearEdition;
-        this.genre = genre;
+    public Book(String titulo, String autor, int anioEdicion, String genero) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.anioEdicion = anioEdicion;
+        this.genero = genero;
     }
 }

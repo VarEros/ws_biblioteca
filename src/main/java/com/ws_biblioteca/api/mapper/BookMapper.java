@@ -15,15 +15,15 @@ public class BookMapper implements RowMapper<Book>{
     @Override
     public Book mapRow(ResultSet rs, int rowNum) throws SQLException {
         Book book = new Book();
-        book.setIdBook(rs.getInt("id_libro"));
-        book.setTitle(rs.getString("titulo"));
-        book.setAuthor(rs.getString("autor"));
-        book.setYearEdition(rs.getInt("anio_edicion"));
-        book.setGenre(rs.getString("genero"));
-        book.setCode(rs.getString("codigo"));
-        book.setStatus(rs.getInt("estado"));        
-        book.setDate_borrow(getLocalDateTime(rs.getTimestamp("fecha_prestado")));
-        book.setIdPerson(rs.getInt("id_persona"));
+        book.setIdLibro(rs.getInt("id_libro"));
+        book.setTitulo(rs.getString("titulo"));
+        book.setAutor(rs.getString("autor"));
+        book.setAnioEdicion(rs.getInt("anio_edicion"));
+        book.setGenero(rs.getString("genero"));
+        book.setCodigo(rs.getString("codigo"));
+        book.setEstado(rs.getInt("estado"));        
+        book.setFechaPrestado(getLocalDateTime(rs.getTimestamp("fecha_prestado")));
+        book.setIdPersona(rs.getInt("id_persona"));
         return book;
     }
 

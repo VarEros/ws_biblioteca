@@ -24,10 +24,10 @@ public class PersonController {
     private PersonService personService;
 
     @GetMapping("{cedula}/BorrowBook")
-    private ResponseEntity<Object> borrowBook(@RequestParam String names, @RequestParam String lastnames, @PathVariable String cedula, @RequestParam int idBook) {
+    private ResponseEntity<Object> borrowBook(@RequestParam String names, @RequestParam String lastnames, @PathVariable String cedula, @RequestParam int idLibro) {
         try {
             Person personObj = new Person(names, lastnames, cedula);
-            String bookBorrowed = personService.bookBorrowed(personObj, idBook);
+            String bookBorrowed = personService.bookBorrowed(personObj, idLibro);
             return ResponseEntity.ok(bookBorrowed);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
@@ -35,9 +35,9 @@ public class PersonController {
     }
 
     @GetMapping("/returnBooks")
-    private ResponseEntity<Object> returnBooks(@RequestParam int idBook1, @RequestParam int idBook2, @RequestParam int idBook3) {
+    private ResponseEntity<Object> returnBooks(@RequestParam int idLibro1, @RequestParam int idLibro2, @RequestParam int idLibro3) {
         try {
-            String bookReturned = personService.returnBooks(idBook1, idBook2, idBook3);
+            String bookReturned = personService.returnBooks(idLibro1, idLibro2, idLibro3);
             return ResponseEntity.ok(bookReturned);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());

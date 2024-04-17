@@ -37,11 +37,11 @@ public class BookRepository {
                             new SqlOutParameter("@msgError", Types.NVARCHAR));
 
             SqlParameterSource paramMap = new MapSqlParameterSource()
-                    .addValue("@idLibro", book.getIdBook())
-                    .addValue("@titulo", book.getTitle())
-                    .addValue("@autor", book.getAuthor())
-                    .addValue("@anioEdicion", book.getYearEdition())
-                    .addValue("@genero", book.getGenre());
+                    .addValue("@idLibro", book.getIdLibro())
+                    .addValue("@titulo", book.getTitulo())
+                    .addValue("@autor", book.getAutor())
+                    .addValue("@anioEdicion", book.getAnioEdicion())
+                    .addValue("@genero", book.getGenero());
 
             Map<String, Object> returnedResultSet = jdbcCall.execute(paramMap);
 
@@ -54,7 +54,7 @@ public class BookRepository {
         }
     }
 
-    public String deleteBook(int idBook) {
+    public String deleteBook(int idLibro) {
         try {
             SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
                     .withProcedureName("PR_U_LIBRO_DAR_BAJA")
@@ -64,7 +64,7 @@ public class BookRepository {
                             new SqlOutParameter("@msgError", Types.NVARCHAR));
 
             SqlParameterSource paramMap = new MapSqlParameterSource()
-                    .addValue("@idLibro", idBook);
+                    .addValue("@idLibro", idLibro);
 
             Map<String, Object> returnedResultSet = jdbcCall.execute(paramMap);
 

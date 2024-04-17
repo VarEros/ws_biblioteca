@@ -23,9 +23,9 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping("/add")
-    private ResponseEntity<Object> registerBook(@RequestParam String title, @RequestParam String author, @RequestParam String genre, @RequestParam int yearEdition) {
+    private ResponseEntity<Object> registerBook(@RequestParam String titulo, @RequestParam String autor, @RequestParam String genero, @RequestParam int anioEdicion) {
         try {
-            Book bookObj = new Book(title, author, yearEdition, genre);
+            Book bookObj = new Book(titulo, autor, anioEdicion, genero);
             String bookRegistered = bookService.createEditBook(bookObj);
             return ResponseEntity.ok(bookRegistered);
         } catch (Exception e) {
@@ -33,10 +33,10 @@ public class BookController {
         }
     }
 
-    @GetMapping("/edit/{idBook}")
-    private ResponseEntity<Object> modifyBook(@PathVariable int idBook, @RequestParam String title, @RequestParam String author, @RequestParam String genre, @RequestParam int yearEdition) {
+    @GetMapping("/edit/{idLibro}")
+    private ResponseEntity<Object> modifyBook(@PathVariable int idLibro, @RequestParam String titulo, @RequestParam String autor, @RequestParam String genero, @RequestParam int anioEdicion) {
         try {
-            Book bookObj = new Book(idBook,title, author, yearEdition, genre);
+            Book bookObj = new Book(idLibro,titulo, autor, anioEdicion, genero);
             String bookRegistered = bookService.createEditBook(bookObj);
             if(bookRegistered == null) {
                 return new ResponseEntity<>(bookRegistered, HttpStatus.NOT_FOUND);
@@ -47,10 +47,10 @@ public class BookController {
         }
     }
 
-    @GetMapping("/delete/{idBook}")
-    private ResponseEntity<Object> deleteBook(@PathVariable int idBook) {
+    @GetMapping("/delete/{idLibro}")
+    private ResponseEntity<Object> deleteBook(@PathVariable int idLibro) {
         try {
-            String bookDeleted = bookService.deleteBook(idBook);
+            String bookDeleted = bookService.deleteBook(idLibro);
             if(bookDeleted == null) {
                 return new ResponseEntity<>(bookDeleted, HttpStatus.NOT_FOUND);
             }
