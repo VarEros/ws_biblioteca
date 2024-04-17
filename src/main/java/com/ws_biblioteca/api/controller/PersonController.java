@@ -24,9 +24,9 @@ public class PersonController {
     private PersonService personService;
 
     @GetMapping("{cedula}/BorrowBook")
-    private ResponseEntity<Object> borrowBook(@RequestParam String names, @RequestParam String lastnames, @PathVariable String cedula, @RequestParam int idLibro) {
+    private ResponseEntity<Object> borrowBook(@RequestParam String nombres, @RequestParam String apellidos, @PathVariable String cedula, @RequestParam int idLibro) {
         try {
-            Person personObj = new Person(names, lastnames, cedula);
+            Person personObj = new Person(nombres, apellidos, cedula);
             String bookBorrowed = personService.bookBorrowed(personObj, idLibro);
             return ResponseEntity.ok(bookBorrowed);
         } catch (Exception e) {

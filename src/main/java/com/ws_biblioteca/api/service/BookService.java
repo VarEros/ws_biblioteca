@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ws_biblioteca.api.model.Book;
+import com.ws_biblioteca.api.model.BookRequest;
 import com.ws_biblioteca.api.repository.BookRepository;
 
 @Service
@@ -14,7 +15,15 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public String createEditBook(Book book) {
+    public String createBook(BookRequest bookRequest) {
+        Book book = bookRequestToBook(bookRequest);
+        String result = bookRepository.registerBook(book);
+        return result;
+    }
+
+    public String editBook(BookRequest bookRequest, int idLibro) {
+        Book book = bookRequestToBook(bookRequest);
+        book.setIdLibro(idLibro);
         String result = bookRepository.registerBook(book);
         return result;
     }
@@ -27,5 +36,10 @@ public class BookService {
     public List<Book> listBooks() {
         List<Book> result = bookRepository.listBooks();
         return result;
+    }
+
+    private Book bookRequestToBook (BookRequest bookRequest) {
+        Book book = new Book(bookRequest.getTitulo(), bookRequest.getAutor(), bookRequest.getAnioEdicion(), bookRequest.getGenero());
+        return book;
     }
 }

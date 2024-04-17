@@ -33,8 +33,8 @@ public class PersonRepository {
                             new SqlParameter("@idLibro", Types.INTEGER));
 
             SqlParameterSource paramMap = new MapSqlParameterSource()
-                    .addValue("@nombres", person.getNames())
-                    .addValue("@apellidos", person.getLastnames())
+                    .addValue("@nombres", person.getNombres())
+                    .addValue("@apellidos", person.getApellidos())
                     .addValue("@cedula", person.getCedula())
                     .addValue("@idLibro", idLibro);
 
@@ -43,7 +43,9 @@ public class PersonRepository {
             if(returnedResultSet.get("@msgError") != null)
                 System.out.println("Error: " + returnedResultSet.get("@msgError"));
             
-                return (String) returnedResultSet.get("@resultado");
+            String resultado = (String) returnedResultSet.get("@resultado");
+            System.out.println("Resultado: " + resultado);
+            return resultado;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -68,7 +70,9 @@ public class PersonRepository {
             if(returnedResultSet.get("@msgError") != null)
                 System.out.println("Error: " + returnedResultSet.get("@msgError"));
             
-                return (String) returnedResultSet.get("@resultado");
+            String resultado = (String) returnedResultSet.get("@resultado");
+            System.out.println("Resultado: " + resultado);
+            return resultado;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -86,6 +90,8 @@ public class PersonRepository {
                     .addValue("@cedula", cedula);
             Map<String, Object> returnedResultSet = jdbcCall.execute(paramMap);
             List<Book> resultSet = (List<Book>) returnedResultSet.get("registro");
+
+            System.out.println("Lista consultada por: " + cedula);
             return resultSet;
         } catch (Exception e) {
             throw new RuntimeException(e);

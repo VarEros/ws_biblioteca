@@ -48,7 +48,9 @@ public class BookRepository {
             if(returnedResultSet.get("@msgError") != null)
                 System.out.println("Error: " + returnedResultSet.get("@msgError"));
             
-                return (String) returnedResultSet.get("@resultado");
+            String resultado = (String) returnedResultSet.get("@resultado");
+            System.out.println("Resultado: " + resultado);
+            return resultado;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -71,7 +73,9 @@ public class BookRepository {
             if(returnedResultSet.get("@msgError") != null)
                 System.out.println("Error: " + returnedResultSet.get("@msgError"));
             
-                return (String) returnedResultSet.get("@resultado");
+            String resultado = (String) returnedResultSet.get("@resultado");
+            System.out.println("Resultado: " + resultado);
+            return resultado;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -87,6 +91,8 @@ public class BookRepository {
 
             Map<String, Object> returnedResultSet = jdbcCall.execute(new MapSqlParameterSource());
             List<Book> resultSet = (List<Book>) returnedResultSet.get("registro");
+
+            System.out.println("Lista consultada");
             return resultSet;
         } catch (Exception e) {
             throw new RuntimeException(e);

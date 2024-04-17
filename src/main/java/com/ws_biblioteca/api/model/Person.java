@@ -5,12 +5,12 @@ import lombok.Data;
 @Data
 public class Person {
     String cedula;
-    String names;
-    String lastnames;
+    String nombres;
+    String apellidos;
 
-    public Person(String names, String lastnames, String cedula) {
-        this.names = names;
-        this.lastnames = lastnames;
+    public Person(String nombres, String apellidos, String cedula) {
+        this.nombres = nombres;
+        this.apellidos = apellidos;
         this.cedula = cedula;
     }
 }
