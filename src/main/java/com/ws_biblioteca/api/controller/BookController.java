@@ -49,7 +49,7 @@ public class BookController {
         }
     }
 
-    @GetMapping("/delete/{idLibro}")
+    @PutMapping("/delete/{idLibro}")
     private ResponseEntity<Object> deleteBook(@PathVariable int idLibro) {
         try {
             String bookDeleted = bookService.deleteBook(idLibro);
