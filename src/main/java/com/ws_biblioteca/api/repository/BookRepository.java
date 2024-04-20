@@ -14,8 +14,9 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import com.ws_biblioteca.api.model.Book;
-
+import com.ws_biblioteca.api.model.PreDev;
 import com.ws_biblioteca.api.mapper.BookMapper;
+import com.ws_biblioteca.api.mapper.PreDevMapper;
 
 @Repository
 public class BookRepository {
@@ -31,7 +32,7 @@ public class BookRepository {
                             new SqlParameter("@idLibro", Types.INTEGER),
                             new SqlParameter("@titulo", Types.NVARCHAR),
                             new SqlParameter("@autor", Types.NVARCHAR),
-                            new SqlParameter("@anioEdicion", Types.INTEGER),
+                            new SqlParameter("@anioEdicion", Types.NCHAR),
                             new SqlParameter("@genero", Types.NVARCHAR),
                             new SqlOutParameter("@resultado", Types.NVARCHAR),
                             new SqlOutParameter("@msgError", Types.NVARCHAR));
@@ -93,6 +94,23 @@ public class BookRepository {
             List<Book> resultSet = (List<Book>) returnedResultSet.get("registro");
 
             System.out.println("Lista consultada");
+            return resultSet;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<PreDev> listPreDev() {
+        try {
+            SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
+                    .withProcedureName("PR_R_PRE_DEV")
+                    .returningResultSet("registro", new PreDevMapper());
+
+            Map<String, Object> returnedResultSet = jdbcCall.execute(new MapSqlParameterSource());
+            List<PreDev> resultSet = (List<PreDev>) returnedResultSet.get("registro");
+
+            System.out.println("Lista PreDev consultada");
             return resultSet;
         } catch (Exception e) {
             throw new RuntimeException(e);

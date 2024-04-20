@@ -7,5 +7,5 @@ public class BookRequest {
     private String titulo;
     private String autor;
     private String genero;
-    private int anioEdicion;
+    private String anioEdicion;
 }

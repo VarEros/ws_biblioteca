@@ -9,7 +9,7 @@ public class Book {
     private int idLibro;
     private String titulo;
     private String autor;
-    private int anioEdicion;
+    private String anioEdicion;
     private String genero;
     private String codigo;
     private int estado;
@@ -19,7 +19,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(int idLibro, String titulo, String autor, int anioEdicion, String genero) {
+    public Book(int idLibro, String titulo, String autor, String anioEdicion, String genero) {
         this.idLibro = idLibro;
         this.titulo = titulo;
         this.autor = autor;
@@ -27,7 +27,7 @@ public class Book {
         this.genero = genero;
     }
 
-    public Book(String titulo, String autor, int anioEdicion, String genero) {
+    public Book(String titulo, String autor, String anioEdicion, String genero) {
         this.titulo = titulo;
         this.autor = autor;
         this.anioEdicion = anioEdicion;

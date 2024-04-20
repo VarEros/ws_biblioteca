@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ws_biblioteca.api.model.Book;
 import com.ws_biblioteca.api.model.BookRequest;
 import com.ws_biblioteca.api.service.BookService;
 
@@ -66,6 +64,15 @@ public class BookController {
     private ResponseEntity<Object> listBooks() {
         try {
             return ResponseEntity.ok(bookService.listBooks());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/listPreDev")
+    private ResponseEntity<Object> listPreDev() {
+        try {
+            return ResponseEntity.ok(bookService.listPreDev());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }

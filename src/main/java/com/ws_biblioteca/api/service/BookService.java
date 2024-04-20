@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ws_biblioteca.api.model.Book;
 import com.ws_biblioteca.api.model.BookRequest;
+import com.ws_biblioteca.api.model.PreDev;
 import com.ws_biblioteca.api.repository.BookRepository;
 
 @Service
@@ -35,6 +36,11 @@ public class BookService {
 
     public List<Book> listBooks() {
         List<Book> result = bookRepository.listBooks();
+        return result;
+    }
+
+    public List<PreDev> listPreDev() {
+        List<PreDev> result = bookRepository.listPreDev();
         return result;
     }
 

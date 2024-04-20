@@ -19,8 +19,8 @@ public class PersonService {
         return personRepository.borrowBook(person, idLibro);
     }
 
-    public String returnBooks(int idLibro1, int idLibro2, int idLibro3) {
-        return personRepository.returnBooks(idLibro1, idLibro2, idLibro3);
+    public String returnBook(int idLibro) {
+        return personRepository.returnBook(idLibro);
     }
 
     public List<Book> listBorrowed(String cedula) {

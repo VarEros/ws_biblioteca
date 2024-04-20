@@ -27,14 +27,14 @@ public class PersonRepository {
             SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
                     .withProcedureName("PR_U_LIBRO_PRESTADO")
                     .declareParameters(
-                            new SqlParameter("@nombres", Types.NVARCHAR),
-                            new SqlParameter("@apellidos", Types.NVARCHAR),
-                            new SqlParameter("@cedula", Types.NVARCHAR),
+                            new SqlParameter("@nombre", Types.NVARCHAR),
+                            new SqlParameter("@apellido", Types.NVARCHAR),
+                            new SqlParameter("@cedula", Types.NCHAR),
                             new SqlParameter("@idLibro", Types.INTEGER));
 
             SqlParameterSource paramMap = new MapSqlParameterSource()
-                    .addValue("@nombres", person.getNombres())
-                    .addValue("@apellidos", person.getApellidos())
+                    .addValue("@nombre", person.getNombre())
+                    .addValue("@apellido", person.getApellido())
                     .addValue("@cedula", person.getCedula())
                     .addValue("@idLibro", idLibro);
 
@@ -51,19 +51,15 @@ public class PersonRepository {
         }
     }
 
-    public String returnBooks(int idLibro1, int idLibro2, int idLibro3) {
+    public String returnBook(int idLibro) {
         try {
             SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
-                    .withProcedureName("PR_U_LIBROS_DEVUELTOS")
+                    .withProcedureName("PR_U_LIBRO_REGRESADO")
                     .declareParameters(
-                            new SqlParameter("@idLibro1", Types.INTEGER),
-                            new SqlParameter("@idLibro2", Types.INTEGER),
-                            new SqlParameter("@idLibro3", Types.INTEGER));
+                            new SqlParameter("@idLibro", Types.INTEGER));
 
             SqlParameterSource paramMap = new MapSqlParameterSource()
-                    .addValue("@idLibro1", idLibro1)
-                    .addValue("@idLibro2", idLibro2)
-                    .addValue("@idLibro3", idLibro3);
+                    .addValue("@idLibro", idLibro);
 
             Map<String, Object> returnedResultSet = jdbcCall.execute(paramMap);
 
@@ -83,7 +79,7 @@ public class PersonRepository {
         try {
             SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
                     .withProcedureName("PR_R_LIBROS_POR_DEVOLVER")
-                    .declareParameters(new SqlParameter("@cedula", Types.NVARCHAR))
+                    .declareParameters(new SqlParameter("@cedula", Types.NCHAR))
                     .returningResultSet("registro", new BookMapper());
 
             SqlParameterSource paramMap = new MapSqlParameterSource()
