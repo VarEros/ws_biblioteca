@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ws_biblioteca.api.model.Book;
 import com.ws_biblioteca.api.model.BookRequest;
 import com.ws_biblioteca.api.service.BookService;
 
@@ -23,6 +24,20 @@ public class BookController {
     
     @Autowired
     private BookService bookService;
+
+    @GetMapping("/find/{idLibro}")
+    private ResponseEntity<Object> findBook(@PathVariable int idLibro) {
+        try {
+            Book bookFound = bookService.findBook(idLibro);
+            if(bookFound == null) {
+                return new ResponseEntity<>(bookFound, HttpStatus.NOT_FOUND);
+            }
+            return ResponseEntity.ok(bookFound);
+            
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
 
     @PostMapping("/add")
     private ResponseEntity<Object> registerBook(@RequestBody BookRequest bookRequest) {

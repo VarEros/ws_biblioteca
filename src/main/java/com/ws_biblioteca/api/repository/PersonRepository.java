@@ -21,7 +21,50 @@ public class PersonRepository {
     
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @SuppressWarnings("unchecked")
+    public Person findPerson(String idPersona) {
+        try {
+            SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
+                    .withProcedureName("PR_R_PERSONA")
+                    .declareParameters(new SqlParameter("@idPersona", Types.INTEGER))
+                    .returningResultSet("registro", new BookMapper());
+
+            SqlParameterSource paramMap = new MapSqlParameterSource()
+                    .addValue("@idPersona", idPersona);
+
+            Map<String, Object> returnedResultSet = jdbcCall.execute(paramMap);
+            List<Person> resultSet = (List<Person>) returnedResultSet.get("registro");
+
+            if (resultSet.size() > 0) {
+                System.out.println("Persona consultada");
+                return (Person) resultSet.get(0);
+            } else {
+                System.out.println("Persona no encontrada");
+                return null;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     
+    @SuppressWarnings("unchecked")
+    public List<Person> listPeople() {
+        try {
+            SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
+                    .withProcedureName("PR_R_PERSONAS")
+                    .returningResultSet("registro", new BookMapper());
+
+            Map<String, Object> returnedResultSet = jdbcCall.execute();
+            List<Person> resultSet = (List<Person>) returnedResultSet.get("registro");
+
+            System.out.println("Lista de personas consultada");
+            return resultSet;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public String borrowBook(Person person, int idLibro) {
         try {
             SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)

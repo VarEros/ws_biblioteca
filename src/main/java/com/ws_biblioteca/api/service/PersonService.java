@@ -15,6 +15,14 @@ public class PersonService {
     @Autowired
     private PersonRepository personRepository;
 
+    public Person findPerson(String idPersona) {
+        return personRepository.findPerson(idPersona);
+    }
+
+    public List<Person> listPeople() {
+        return personRepository.listPeople();
+    }
+
     public String bookBorrowed(Person person, int idLibro) {
         return personRepository.borrowBook(person, idLibro);
     }

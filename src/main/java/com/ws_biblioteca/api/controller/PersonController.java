@@ -23,7 +23,27 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
-    @GetMapping("{cedula}/BorrowBook")
+    @GetMapping("find/{idPersona}")
+    private ResponseEntity<Object> findPerson(@PathVariable String idPersona) {
+        try {
+            Person personFound = personService.findPerson(idPersona);
+            return ResponseEntity.ok(personFound);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/list")
+    private ResponseEntity<Object> listPeople() {
+        try {
+            List<Person> personList = personService.listPeople();
+            return ResponseEntity.ok(personList);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/{cedula}/BorrowBook")
     private ResponseEntity<Object> borrowBook(@RequestParam String nombre, @RequestParam String apellido, @PathVariable String cedula, @RequestParam int idLibro) {
         try {
             Person personObj = new Person(nombre, apellido, cedula);
@@ -44,7 +64,7 @@ public class PersonController {
         }
     }
 
-    @GetMapping("{cedula}/listBorrowed")
+    @GetMapping("/{cedula}/listBorrowed")
     private ResponseEntity<Object> listBorrowed(@PathVariable String cedula) {
         try{
             List<Book> bookList = personService.listBorrowed(cedula);

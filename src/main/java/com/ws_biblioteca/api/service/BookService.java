@@ -16,6 +16,11 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
+    public Book findBook(int idLibro) {
+        Book result = bookRepository.findBook(idLibro);
+        return result;
+    }
+
     public String createBook(BookRequest bookRequest) {
         Book book = bookRequestToBook(bookRequest);
         String result = bookRepository.registerBook(book);

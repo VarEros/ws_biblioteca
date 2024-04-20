@@ -24,6 +24,32 @@ public class BookRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @SuppressWarnings("unchecked")
+    public Book findBook(int idLibro) {
+        try {
+            SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
+                    .withProcedureName("PR_R_LIBRO")
+                    .declareParameters(new SqlParameter("@idLibro", Types.INTEGER))
+                    .returningResultSet("registro", new BookMapper());
+
+            SqlParameterSource paramMap = new MapSqlParameterSource()
+                    .addValue("@idLibro", idLibro);
+
+            Map<String, Object> returnedResultSet = jdbcCall.execute(paramMap);
+            List<Book> resultSet = (List<Book>) returnedResultSet.get("registro");
+
+            if (resultSet.size() > 0) {
+                System.out.println("Libro consultado");
+                return resultSet.get(0);
+            } else {
+                System.out.println("Libro no encontrado");
+                return null;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public String registerBook(Book book) {
         try {
             SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
