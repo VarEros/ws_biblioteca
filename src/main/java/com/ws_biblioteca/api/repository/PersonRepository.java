@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -73,7 +74,9 @@ public class PersonRepository {
                             new SqlParameter("@nombre", Types.NVARCHAR),
                             new SqlParameter("@apellido", Types.NVARCHAR),
                             new SqlParameter("@cedula", Types.NCHAR),
-                            new SqlParameter("@idLibro", Types.INTEGER));
+                            new SqlParameter("@idLibro", Types.INTEGER),
+                            new SqlOutParameter("@resultado", Types.NVARCHAR),
+                            new SqlOutParameter("@msgError", Types.NVARCHAR));
 
             SqlParameterSource paramMap = new MapSqlParameterSource()
                     .addValue("@nombre", person.getNombre())
