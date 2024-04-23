@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.ws_biblioteca.api.model.Book;
 import com.ws_biblioteca.api.model.Person;
 import com.ws_biblioteca.api.service.PersonService;
-
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @Controller
 @RequestMapping("/person")
@@ -49,6 +48,7 @@ public class PersonController {
     @PostMapping("/{idLibro}/BorrowBook")
     private ResponseEntity<Object> borrowBook(@RequestBody Person persona, @PathVariable int idLibro) {
         try {
+            System.out.println(persona);
             String bookBorrowed = personService.bookBorrowed(persona, idLibro);
             return ResponseEntity.ok(bookBorrowed);
         } catch (Exception e) {

@@ -41,7 +41,7 @@ public class LateFeeRepository {
     public String payLateFee(int idMulta) {
         try {
             SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
-                    .withProcedureName("PR_MULTA_CANCELADA")
+                    .withProcedureName("PR_D_MULTA_CANCELADA")
                     .declareParameters(
                             new SqlParameter("@idMulta", Types.INTEGER),
                             new SqlOutParameter("@mensaje", Types.NVARCHAR));
