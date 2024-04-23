@@ -8,12 +8,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ws_biblioteca.api.model.Book;
 import com.ws_biblioteca.api.model.Person;
 import com.ws_biblioteca.api.service.PersonService;
+
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @Controller
 @RequestMapping("/person")
@@ -43,11 +46,10 @@ public class PersonController {
         }
     }
 
-    @GetMapping("/{cedula}/BorrowBook")
-    private ResponseEntity<Object> borrowBook(@RequestParam String nombre, @RequestParam String apellido, @PathVariable String cedula, @RequestParam int idLibro) {
+    @PostMapping("/{idLibro}/BorrowBook")
+    private ResponseEntity<Object> borrowBook(@RequestBody Person persona, @PathVariable int idLibro) {
         try {
-            Person personObj = new Person(nombre, apellido, cedula);
-            String bookBorrowed = personService.bookBorrowed(personObj, idLibro);
+            String bookBorrowed = personService.bookBorrowed(persona, idLibro);
             return ResponseEntity.ok(bookBorrowed);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
